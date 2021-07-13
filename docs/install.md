@@ -39,7 +39,7 @@
   .env.production
   ```
   分别是本地开发环境配置文件/正式发布的配置文件
-  `VUE_APP_SUB_DOMAIN` 改为你自己的专属域名
+  `VUE_APP_SUB_DOMAIN` 改为你自己的专属域名，`VUE_APP_SUB_DOMAIN` 改为你的h5的网页标题，`VUE_APP_BAIDU_MAP_KEY` 建议取百度地图开放平台免费申请一个自己的 key ,不要用公用的测试key，会有使用频次限制
 - 本地运行命令
   ```js
   npm run serve
