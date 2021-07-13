@@ -1,0 +1,69 @@
+body,html{
+    width: 100%;
+    height: 100%;
+    font-family: PingFang SC, 'Helvetica Neue', Arial, sans-serif;
+    color: #282828;
+    margin:0;
+    padding:0;
+    -webkit-overflow-scrolling: touch;
+    
+}
+// 1. 清除某些元素在不同浏览器下内外补白不同造成的影响
+ul,
+ol,
+dl,
+dd,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+figure,
+form,
+fieldset,
+legend,
+input,
+textarea,
+button,
+p,
+blockquote,
+th,
+td,
+pre,
+xmp {
+    margin: 0;
+    padding: 0;
+}
+
+// 1. 为不继承的元素设定继承父级行高
+// 2. 为不继承的元素设定继承父级字体
+input,
+textarea,
+button,
+select,
+pre,
+xmp,
+tt,
+code,
+kbd,
+samp {
+    line-height: inherit;
+    font-family: inherit;
+}
+
+// 1. 为不继承的元素设定继承父级字号
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+small,
+big,
+input,
+textarea,
+button,
+select {
+    font-size: inherit;
+}
