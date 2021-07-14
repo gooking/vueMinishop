@@ -19,4 +19,5 @@ QQ交流群： 597855094
 ### 使用教程
 
 - [安装教程](docs/install.md)
+- [小票打印机配置教程](docs/printer.md)
 
