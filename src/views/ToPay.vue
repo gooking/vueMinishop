@@ -95,7 +95,7 @@
             <van-radio :name="3" icon-size="14px">精品</van-radio>
           </van-radio-group>
         </template>
-      </van-cell>111{{sysconfig.bz3_price}}222
+      </van-cell>
       <van-cell v-if="bzType == 1" title="包装费用" :value="'¥' + sysconfig.bz1_price" value-class="cell-price" />
       <van-cell v-if="bzType == 2" title="包装费用" :value="'¥' + sysconfig.bz2_price" value-class="cell-price" />
       <van-cell v-if="bzType == 3" title="包装费用" :value="'¥' + sysconfig.bz3_price" value-class="cell-price" />
@@ -129,7 +129,12 @@
       </div>
     </div> -->
     <div class="blank-bottom" />
-    <div v-if="orderCalculate" class="pay-bar">
+    <div v-if="outOfPSArea" class="pay-bar">
+      <div class="amount-box amount-box2">
+        超出配送访问，仅限配送北京
+      </div>
+    </div>
+    <div v-if="orderCalculate && !outOfPSArea" class="pay-bar">
       <div class="amount-box">
         <div v-if="bzType == 1" class="amount">总计¥{{ (orderCalculate.amountTotle*100 + orderCalculate.amountLogistics*100 + sysconfig.bz1_price*100)/100 }}</div>
         <div v-if="bzType == 2" class="amount">总计¥{{ (orderCalculate.amountTotle*100 + orderCalculate.amountLogistics*100 + sysconfig.bz2_price*100)/100 }}</div>
@@ -173,7 +178,7 @@ export default {
       defaultAddress: undefined,
       cartInfo: {},
       remark: '',
-      outOfPSArea: true,
+      outOfPSArea: false,
       curFeePeisong: undefined,
       orderCalculate: {},
       distance: 0,
@@ -375,7 +380,6 @@ export default {
     width: 350px;
     border-bottom: 0.5px solid #ddd;
     margin-left: 5px;
-   
   }
   .van-cell.van-cell--13px.van-field{
     font-size: 13px;
@@ -536,6 +540,11 @@ export default {
       height: 50px;
       line-height: 50px;
     }
+  }
+  .amount-box2 {
+    width: 100vw;
+    line-height: 50px;
+    text-align: center;
   }
   .pay-box{
     background-color: red;
