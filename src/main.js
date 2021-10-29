@@ -15,6 +15,10 @@ Vue.use(Lazyload, {
 
 Vue.config.productionTip = false
 
+import WEBAPI from 'apifm-webapi'
+WEBAPI.init(process.env.VUE_APP_SUB_DOMAIN)
+Vue.prototype.$wxapi = WEBAPI
+
 new Vue({
   router,
   store,

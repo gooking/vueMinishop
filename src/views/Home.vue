@@ -67,7 +67,6 @@ import wx from 'weixin-js-sdk'
 import { mapGetters } from 'vuex'
 import { getToken, getUid } from '@/utils/auth'
 const WEBAPI = require('apifm-webapi')
-WEBAPI.init(process.env.VUE_APP_SUB_DOMAIN)
 
 wx.ready(() => { // 需在用户可能点击分享按钮前就先调用
   wx.updateAppMessageShareData({

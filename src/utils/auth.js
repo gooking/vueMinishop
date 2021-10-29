@@ -3,11 +3,12 @@ import Cookies from 'js-cookie'
 const TokenKey = 'vueshop-token'
 
 export function getToken() {
-  // return '507d320c-c64a-432c-8696-80de8a3669d9'
+  // return 'af87fd6d-56e6-4871-a499-10430fde0c54'
   return Cookies.get(TokenKey)
 }
 
 export function getUid() {
+  // 2091470 测试账号
   return Cookies.get('vueshop-uid')
 }
 

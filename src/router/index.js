@@ -5,7 +5,6 @@ import { getToken, setToken, setUid, removeToken, setInvite, getInvite } from '@
 const WEBAPI = require('apifm-webapi')
 
 Vue.use(VueRouter)
-WEBAPI.init(process.env.VUE_APP_SUB_DOMAIN)
 
 const routes = [
   {

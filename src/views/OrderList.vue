@@ -29,7 +29,6 @@
 </template>
 <script>
 const WEBAPI = require('apifm-webapi')
-WEBAPI.init(process.env.VUE_APP_SUB_DOMAIN)
 import { getToken } from '@/utils/auth'
 import { Dialog } from 'vant'
 export default {

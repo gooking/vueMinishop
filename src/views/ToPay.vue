@@ -170,7 +170,6 @@ import { ImagePreview } from 'vant'
 import { getToken } from '@/utils/auth'
 import { mapGetters } from 'vuex'
 const WEBAPI = require('apifm-webapi')
-WEBAPI.init(process.env.VUE_APP_SUB_DOMAIN)
 export default {
   data() {
     return {

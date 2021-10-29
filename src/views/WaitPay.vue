@@ -21,7 +21,6 @@
 import { mapGetters } from 'vuex'
 import { getToken } from '@/utils/auth'
 const WEBAPI = require('apifm-webapi')
-WEBAPI.init(process.env.VUE_APP_SUB_DOMAIN)
 
 export default {
   data() {
