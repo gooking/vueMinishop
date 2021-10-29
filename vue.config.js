@@ -1,21 +1,20 @@
-"use strict";
-const path = require("path");
-// const webpack = require("webpack");
+'use strict'
+const path = require('path')
 
 function resolve(dir) {
-  return path.join(__dirname, dir);
+  return path.join(__dirname, dir)
 }
 
-const name = "orderFood-h5";
+const name = 'vueMinishop'
 
-const autoprefixer = require("autoprefixer");
-const pxtorem = require("postcss-pxtorem");
-const port = 8080; // // dev port
+const autoprefixer = require('autoprefixer')
+const pxtorem = require('postcss-pxtorem')
+const port = 8080 // // dev port
 module.exports = {
-  outputDir: "dist",
-  publicPath: "/",
-  assetsDir: "static",
-  lintOnSave: process.env.NODE_ENV === "development",
+  outputDir: 'dist',
+  publicPath: '/',
+  assetsDir: 'static',
+  lintOnSave: process.env.NODE_ENV === 'development',
   productionSourceMap: false,
   devServer: {
     port: port,
@@ -32,79 +31,79 @@ module.exports = {
     name: name,
     resolve: {
       alias: {
-        "@": resolve("src")
+        '@': resolve('src')
       }
     }
   },
   chainWebpack(config) {
-    config.plugins.delete("preload"); // TODO: need test
-    config.plugins.delete("prefetch"); // TODO: need test
+    config.plugins.delete('preload') // TODO: need test
+    config.plugins.delete('prefetch') // TODO: need test
 
     // set svg-sprite-loader
     config.module
-      .rule("svg")
-      .exclude.add(resolve("src/icons"))
-      .end();
-    config.module
-      .rule("icons")
-      .test(/\.svg$/)
-      .include.add(resolve("src/icons"))
+      .rule('svg')
+      .exclude.add(resolve('src/icons'))
       .end()
-      .use("svg-sprite-loader")
-      .loader("svg-sprite-loader")
+    config.module
+      .rule('icons')
+      .test(/\.svg$/)
+      .include.add(resolve('src/icons'))
+      .end()
+      .use('svg-sprite-loader')
+      .loader('svg-sprite-loader')
       .options({
-        symbolId: "icon-[name]"
+        symbolId: 'icon-[name]'
       })
-      .end();
+      .end()
 
     // set preserveWhitespace
     config.module
-      .rule("vue")
-      .use("vue-loader")
-      .loader("vue-loader")
+      .rule('vue')
+      .use('vue-loader')
+      .loader('vue-loader')
       .tap(options => {
-        options.compilerOptions.preserveWhitespace = true;
-        return options;
+        options.compilerOptions.preserveWhitespace = true
+        return options
       })
-      .end();
+      .end()
 
     config
       // https://webpack.js.org/configuration/devtool/#development
-      .when(process.env.NODE_ENV === "development", config =>
-        config.devtool("cheap-source-map")
-      );
+      .when(process.env.NODE_ENV === 'development', config =>
+        config.devtool('cheap-source-map')
+      )
 
-    config.when(process.env.NODE_ENV !== "development", config => {
+    config.when(process.env.NODE_ENV !== 'development', config => {
       config
-        .plugin("ScriptExtHtmlWebpackPlugin")
-        .after("html")
-        .use("script-ext-html-webpack-plugin", [
+        .plugin('ScriptExtHtmlWebpackPlugin')
+        .after('html')
+        .use('script-ext-html-webpack-plugin', [
           {
             // `runtime` must same as runtimeChunk name. default is `runtime`
             inline: /runtime\..*\.js$/
           }
         ])
-        .end();
+        .end()
       config.optimization.splitChunks({
-        chunks: "all",
+        chunks: 'all',
         cacheGroups: {
           libs: {
-            name: "chunk-libs",
+            name: 'chunk-libs',
             test: /[\\/]node_modules[\\/]/,
             priority: 10,
-            chunks: "initial" // only package third parties that are initially dependent
+            chunks: 'initial' // only package third parties that are initially dependent
           },
           commons: {
-            name: "chunk-commons",
-            test: resolve("src/components"), // can customize your rules
+            name: 'chunk-commons',
+            test: resolve('src/components'), // can customize your rules
             minChunks: 3, //  minimum common number
             priority: 5,
             reuseExistingChunk: true
           }
         }
-      });
-      config.optimization.runtimeChunk("single");
-    });
+      })
+      config.optimization.runtimeChunk('single')
+    })
   },
   css: {
     loaderOptions: {
@@ -113,10 +112,10 @@ module.exports = {
           autoprefixer(),
           pxtorem({
             rootValue: 37.5,
-            propList: ["*"]
+            propList: ['*']
           })
         ]
       }
     }
   }
-};
+}
