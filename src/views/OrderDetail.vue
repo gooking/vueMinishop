@@ -74,7 +74,6 @@
   </div>
 </template>
 <script>
-const WEBAPI = require('apifm-webapi')
 import { getToken } from '@/utils/auth'
 export default {
   data() {
@@ -87,7 +86,7 @@ export default {
   },
   methods: {
     async orderDetail() {
-      const res = await WEBAPI.orderDetail(getToken(), this.$route.query.id)
+      const res = await this.$wxapi.orderDetail(getToken(), this.$route.query.id)
       if (res.code === 0) {
         if (res.data.orderInfo.status === 3) {
           res.data.orderInfo.statusStr = '交易成功'

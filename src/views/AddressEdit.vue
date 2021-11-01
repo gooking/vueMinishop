@@ -12,7 +12,6 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth'
-const WEBAPI = require('apifm-webapi')
 
 export default {
   data() {
@@ -38,7 +37,7 @@ export default {
     },
     // 保存
     async onSave(content) {
-      const res = await WEBAPI.addAddress({
+      const res = await this.$wxapi.addAddress({
         token: getToken(),
         provinceId: 0,
         cityId: 0,

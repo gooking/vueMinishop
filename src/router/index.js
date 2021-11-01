@@ -2,7 +2,6 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Parent from '../components/Parent.vue'
 import { getToken, setToken, setUid, removeToken, setInvite, getInvite } from '@/utils/auth'
-const WEBAPI = require('apifm-webapi')
 
 Vue.use(VueRouter)
 
@@ -105,7 +104,7 @@ router.beforeEach((to, from, next) => {
     if (getInvite()) {
       authData.referrer = getInvite()
     }
-    WEBAPI.authorization(authData).then(res => {
+    Vue.prototype.$wxapi.authorization(authData).then(res => {
       if (res.code !== 0) {
         // alert(res.msg)
         next()
@@ -120,19 +119,26 @@ router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth) {
       const token = getToken()
       if (token) {
-        WEBAPI.checkToken(token).then(res => {
+        Vue.prototype.$wxapi.checkToken(token).then(res => {
           if (res.code === 0) {
             next()
           } else {
             removeToken()
-            let _domian = location.href
-            _domian = encodeURIComponent(_domian)
-            parent.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + res.data.wxMpAppid + '&redirect_uri=' + _domian + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+            Vue.prototype.$wxapi.siteStatistics().then(res => {
+              if (res.code !== 0) {
+                this.$toast(res.msg)
+                return
+              }
+              // let _domian = 'http://' + document.domain + '/login?redirect=' + router.currentRoute.fullPath
+              let _domian = location.href
+              _domian = encodeURIComponent(_domian)
+              parent.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=' + res.data.wxMpAppid + '&redirect_uri=' + _domian + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect'
+            })
           }
         })
         next()
       } else {
-        WEBAPI.siteStatistics().then(res => {
+        Vue.prototype.$wxapi.siteStatistics().then(res => {
           if (res.code !== 0) {
             this.$toast(res.msg)
             return

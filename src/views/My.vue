@@ -9,7 +9,7 @@
       <div class="balance">
         <div class="box">
           <div class="units">¥</div>
-          <div class="m">{{userAmount.balance}}</div>
+          <div class="m">{{ userAmount.balance }}</div>
         </div>
         <div class="title">可用余额</div>
       </div>
@@ -60,12 +60,11 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth'
-const WEBAPI = require('apifm-webapi')
 export default {
   data() {
     return {
       userDetail: undefined,
-      userAmount: undefined
+      userAmount: {}
     }
   },
   mounted() {
@@ -74,7 +73,7 @@ export default {
   },
   methods: {
     async getUserDetail() {
-      const res = await WEBAPI.userDetail(getToken())
+      const res = await this.$wxapi.userDetail(getToken())
       if (res.code === 0) {
         this.userDetail = res.data
       } else {
@@ -82,7 +81,7 @@ export default {
       }
     },
     async getUserAmount() {
-      const res = await WEBAPI.userAmount(getToken())
+      const res = await this.$wxapi.userAmount(getToken())
       if (res.code === 0) {
         this.userAmount = res.data
       } else {

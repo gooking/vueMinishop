@@ -14,7 +14,6 @@
 </template>
 <script>
 import { getToken } from '@/utils/auth'
-const WEBAPI = require('apifm-webapi')
 export default {
   data() {
     return {
@@ -28,7 +27,7 @@ export default {
   },
   methods: {
     async getAddressList() {
-      const res = await WEBAPI.queryAddress(getToken())
+      const res = await this.$wxapi.queryAddress(getToken())
       if (res.code === 700) {
         this.$toast('暂无收货地址')
         this.addressList = []
@@ -50,7 +49,7 @@ export default {
       }
     },
     async deleteAddress(item) {
-      const res = await WEBAPI.deleteAddress(getToken(), item.id)
+      const res = await this.$wxapi.deleteAddress(getToken(), item.id)
       if (res.code === 0) {
         this.$toast('删除成功')
         this.getAddressList()
@@ -62,7 +61,7 @@ export default {
       const _data = Object.assign({}, item)
       _data.isDefault = true
       _data.token = getToken()
-      const res = await WEBAPI.updateAddress(_data)
+      const res = await this.$wxapi.updateAddress(_data)
       if (res.code === 0) {
         this.$router.go(-1)
       } else {

@@ -20,7 +20,6 @@
 <script>
 import { mapGetters } from 'vuex'
 import { getToken } from '@/utils/auth'
-const WEBAPI = require('apifm-webapi')
 
 export default {
   data() {
@@ -42,7 +41,7 @@ export default {
   methods: {
     // 订单详情
     async orderDetail() {
-      const res = await WEBAPI.orderDetail(getToken(), this.$route.query.id)
+      const res = await this.$wxapi.orderDetail(getToken(), this.$route.query.id)
       if (res.code === 0) {
         this.orderInfo = res.data.orderInfo
       } else {
@@ -50,7 +49,7 @@ export default {
       }
     },
     async getUserAmount() {
-      const res = await WEBAPI.userAmount(getToken())
+      const res = await this.$wxapi.userAmount(getToken())
       if (res.code === 0) {
         this.userAmount = res.data
       } else {

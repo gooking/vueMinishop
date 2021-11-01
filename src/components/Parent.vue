@@ -12,7 +12,6 @@
 </template>
 
 <script>
-const WEBAPI = require('apifm-webapi')
 
 export default {
   data() {
@@ -25,7 +24,7 @@ export default {
   },
   methods: {
     async queryConfigBatch() {
-      const res = await WEBAPI.queryConfigBatch('gps,paycode,bz1_price,bz2_price,bz3_price,paycodeali,alert_notice')
+      const res = await this.$wxapi.queryConfigBatch('gps,paycode,bz1_price,bz2_price,bz3_price,paycodeali,alert_notice')
       if (res.code === 0) {
         const sysconfig = {}
         res.data.forEach(ele => {

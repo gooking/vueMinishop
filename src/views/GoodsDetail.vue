@@ -26,13 +26,12 @@
 <script>
 import wx from 'weixin-js-sdk'
 import { getToken, getUid } from '@/utils/auth'
-const WEBAPI = require('apifm-webapi')
 
 wx.ready(() => { // 需在用户可能点击分享按钮前就先调用
   wx.updateAppMessageShareData({
     title: '牛街and美食，好吃的不得了', // 分享标题
     desc: '牛街and美食，好吃的不得了哦', // 分享描述
-    link: 'http://m.niujiemenshi.com/home?inviteId=' + getUid(), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+    link: 'http://vueshop.s2m.cc//home?inviteId=' + getUid(), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
     imgUrl: 'https://dcdn.it120.cc/2020/06/03/96550576-b74c-4d71-bc05-1609be0b9240.png', // 分享图标
     success: function() {
       // 设置成功
@@ -40,7 +39,7 @@ wx.ready(() => { // 需在用户可能点击分享按钮前就先调用
   })
   wx.updateTimelineShareData({
     title: '牛街and美食，好吃的不得了', // 分享标题
-    link: 'http://m.niujiemenshi.com/home?inviteId=' + getUid(), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
+    link: 'http://vueshop.s2m.cc/home?inviteId=' + getUid(), // 分享链接，该链接域名或路径必须与当前页面对应的公众号JS安全域名一致
     imgUrl: 'https://dcdn.it120.cc/2020/06/03/96550576-b74c-4d71-bc05-1609be0b9240.png', // 分享图标
     success: function() {
       // 设置成功
@@ -64,7 +63,7 @@ export default {
   },
   methods: {
     async jssdkSign() {
-      const res = await WEBAPI.jssdkSign(window.location.href)
+      const res = await this.$wxapi.jssdkSign(window.location.href)
       if (res.code === 0) {
         wx.config({
           debug: false, // 开启调试模式,调用的所有api的返回值会在客户端alert出来，若要查看传入的参数，可以在pc端打开，参数信息会通过log打出，仅在pc端时才会打印。
@@ -77,13 +76,13 @@ export default {
       }
     },
     async initGoods() {
-      const res = await WEBAPI.goodsDetail(this.$route.query.id)
+      const res = await this.$wxapi.goodsDetail(this.$route.query.id)
       if (res.code === 0) {
         this.goodsDetail = res.data
       }
     },
     async shippingCarInfo() {
-      const res = await WEBAPI.shippingCarInfo(getToken())
+      const res = await this.$wxapi.shippingCarInfo(getToken())
       if (res.code === 0) {
         this.cartInfo = res.data
       } else {
@@ -91,7 +90,7 @@ export default {
       }
     },
     async addCart() {
-      const res = await WEBAPI.shippingCarInfoAddItem(getToken(), this.goodsDetail.basicInfo.id, 1, [])
+      const res = await this.$wxapi.shippingCarInfoAddItem(getToken(), this.goodsDetail.basicInfo.id, 1, [])
       if (res.code === 0) {
         this.$toast('加入成功')
         await this.shippingCarInfo()

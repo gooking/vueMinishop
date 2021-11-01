@@ -28,7 +28,6 @@
   <van-empty v-else description="暂无订单" />
 </template>
 <script>
-const WEBAPI = require('apifm-webapi')
 import { getToken } from '@/utils/auth'
 import { Dialog } from 'vant'
 export default {
@@ -45,7 +44,7 @@ export default {
   },
   methods: {
     async fetchOrderList() {
-      const res = await WEBAPI.orderList({
+      const res = await this.$wxapi.orderList({
         token: getToken(),
         pageSize: 10000
       })
@@ -70,7 +69,7 @@ export default {
       })
     },
     async _orderClose(id) {
-      const res = await WEBAPI.orderClose(getToken(), id)
+      const res = await this.$wxapi.orderClose(getToken(), id)
       if (res.code === 0) {
         this.$toast('订单已关闭')
         this.fetchOrderList()
@@ -88,7 +87,7 @@ export default {
       })
     },
     async _querenshouhuo(id) {
-      const res = await WEBAPI.orderDelivery(getToken(), id)
+      const res = await this.$wxapi.orderDelivery(getToken(), id)
       if (res.code === 0) {
         this.$toast('交易成功')
         this.fetchOrderList()
@@ -106,7 +105,7 @@ export default {
       })
     },
     async _deleteOrder(id) {
-      const res = await WEBAPI.orderDelete(getToken(), id)
+      const res = await this.$wxapi.orderDelete(getToken(), id)
       if (res.code === 0) {
         this.$toast('删除成功')
         this.fetchOrderList()

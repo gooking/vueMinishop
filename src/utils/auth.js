@@ -3,7 +3,7 @@ import Cookies from 'js-cookie'
 const TokenKey = 'vueshop-token'
 
 export function getToken() {
-  // return 'af87fd6d-56e6-4871-a499-10430fde0c54'
+  // return 'db11fdff-73e5-44ac-8f48-c7bf08c4fe8e'
   return Cookies.get(TokenKey)
 }
 

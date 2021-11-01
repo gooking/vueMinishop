@@ -169,7 +169,6 @@
 import { ImagePreview } from 'vant'
 import { getToken } from '@/utils/auth'
 import { mapGetters } from 'vuex'
-const WEBAPI = require('apifm-webapi')
 export default {
   data() {
     return {
@@ -229,11 +228,11 @@ export default {
       this.pstimesOpen = false
     },
     async fetchDefaultAddress() {
-      const res = await WEBAPI.defaultAddress(getToken())
+      const res = await this.$wxapi.defaultAddress(getToken())
       if (res.code === 0) {
         this.defaultAddress = res.data.info
         // 计算配送距离
-        const distanceRes = await WEBAPI.gpsDistance({
+        const distanceRes = await this.$wxapi.gpsDistance({
           key: process.env.VUE_APP_BAIDU_MAP_KEY,
           mode: 'bicycling',
           from: this.$store.getters.sysconfig.gps,
@@ -245,7 +244,7 @@ export default {
           return
         }
         const distance = distanceRes.data.result.rows[0].elements[0].distance / 1000.0
-        const peisongFeeRes = await WEBAPI.peisongfei()
+        const peisongFeeRes = await this.$wxapi.peisongfei()
         if (peisongFeeRes.code !== 0) {
           this.$toast('当前地址超出配送范围')
           this.outOfPSArea = true
@@ -269,7 +268,7 @@ export default {
       location.href = 'https://apis.map.qq.com/tools/locpicker?search=1&type=0&backurl=http://' + document.domain + '/AddressEdit%3ftopay%3d1&key=' + process.env.VUE_APP_BAIDU_MAP_KEY + '&referer=vueshopdemo'
     },
     async shippingCarInfo() {
-      const res = await WEBAPI.shippingCarInfo(getToken())
+      const res = await this.$wxapi.shippingCarInfo(getToken())
       if (res.code === 0) {
         this.cartInfo = res.data
       } else {
@@ -327,14 +326,14 @@ export default {
         extJsonStr['包装'] = '精品包装'
       }
       _data.extJsonStr = JSON.stringify(extJsonStr)
-      const res = await WEBAPI.orderCreate(_data)
+      const res = await this.$wxapi.orderCreate(_data)
       if (res.code !== 0) {
         this.$toast(res.msg)
         return
       }
       if (!calculate) {
         this.$toast('下单成功!')
-        await WEBAPI.shippingCarInfoRemoveAll(getToken())
+        await this.$wxapi.shippingCarInfoRemoveAll(getToken())
         this.$router.replace('/waitPay?id=' + res.data.id)
       } else {
         this.orderCalculate = res.data

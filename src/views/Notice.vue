@@ -4,7 +4,6 @@
   </div>
 </template>
 <script>
-const WEBAPI = require('apifm-webapi')
 
 export default {
   data() {
@@ -18,7 +17,7 @@ export default {
   methods: {
     // 获取餐馆信息
     async noticeDetail() {
-      const res = await WEBAPI.noticeDetail(this.$route.query.id)
+      const res = await this.$wxapi.noticeDetail(this.$route.query.id)
       if (res.code === 0) {
         this.content = res.data.content
       } else {

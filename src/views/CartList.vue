@@ -42,7 +42,6 @@
   </div>
 </template>
 <script>
-const WEBAPI = require('apifm-webapi')
 import { getToken } from '@/utils/auth'
 export default {
   data() {
@@ -55,7 +54,7 @@ export default {
   },
   methods: {
     async shippingCarInfo() {
-      const res = await WEBAPI.shippingCarInfo(getToken())
+      const res = await this.$wxapi.shippingCarInfo(getToken())
       if (res.code === 0) {
         this.cartInfo = res.data
       } else {
@@ -64,15 +63,15 @@ export default {
     },
     async editShopCart(item) {
       if (item.number === 0) {
-        await WEBAPI.shippingCarInfoRemoveItem(getToken(), item.key)
+        await this.$wxapi.shippingCarInfoRemoveItem(getToken(), item.key)
         await this.shippingCarInfo()
         return
       }
-      await WEBAPI.shippingCarInfoModifyNumber(getToken(), item.key, item.number)
+      await this.$wxapi.shippingCarInfoModifyNumber(getToken(), item.key, item.number)
       await this.shippingCarInfo()
     },
     async emptyShopCart() {
-      const res = await WEBAPI.shippingCarInfoRemoveAll(getToken())
+      const res = await this.$wxapi.shippingCarInfoRemoveAll(getToken())
       if (res.code === 0) {
         await this.shippingCarInfo()
       } else {
