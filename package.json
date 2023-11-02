@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "amfe-flexible": "^2.2.1",
-    "apifm-webapi": "^3.49.0",
+    "apifm-webapi": "^23.11.2",
     "axios": "^0.25.0",
     "core-js": "^3.20.3",
     "js-cookie": "^3.0.1",
